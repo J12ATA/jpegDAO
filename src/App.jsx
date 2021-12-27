@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useWeb3 } from '@3rdweb/hooks';
 import { ThirdwebSDK } from '@3rdweb/sdk';
 import { ethers } from 'ethers';
+import { UnsupportedChainIdError } from '@web3-react/core';
 
 const sdk = new ThirdwebSDK('rinkeby');
 const contractAddress = '0x4dc9940c00Ff567469B77dbE99988e010Fe663E0';
@@ -159,7 +160,7 @@ const App = () => {
       });
   }, [hasClaimedNFT, proposals, address]);
 
-  if (error && error.name === 'UnsupportedChainIdError') {
+  if (error instanceof UnsupportedChainIdError) {
     return (
       <div className="unsupported-network">
         <h2>Please connect to Rinkeby</h2>
